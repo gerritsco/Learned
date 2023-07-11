@@ -1,0 +1,16 @@
+{
+    "orgName": "force-di-enterprise-scratch-ent",
+    "edition": "Enterprise",
+    "features": [],
+    "release": "Preview",
+    "settings": {
+        "lightningExperienceSettings": {
+            "enableS1DesktopEnabled": true
+        },
+        "securitySettings": {
+            "sessionSettings":{
+                "sessionTimeout": "TwelveHours"
+            }
+        }
+    }
+}

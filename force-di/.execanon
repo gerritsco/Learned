@@ -1,0 +1,13 @@
+Savepoint sp = Database.setSavepoint();
+try {
+    insert new Account(Name = 'Fred');
+} finally {
+    Database.rollback(sp);
+}
+
+insert new Widget__c();
+
+RuntimeBindingDemoOrg.run();
+RuntimeBindingDemoLocal.run();
+
+System.debug(AutoLaunchFlowDemo.reverseFlowString());
