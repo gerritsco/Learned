@@ -1,0 +1,31 @@
+name: Deploy Pull Request
+on:
+  push:
+    branches:
+      - "main"
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with: 
+          node-version: 18
+      - name: Install SFDX
+        run: npm install --global sfdx-cli
+      - name: Auth Salesforce
+        run: |
+          echo "$JWT" > ~/server.key
+          sfdx force auth jwt grant \
+          --client-id $CONSUMER_KEY \
+          --jwt-key-file ~/server.key \
+          --username $USERNAME \
+          --instance-url $URL \
+          -s
+        env: 
+          CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
+          USERNAME: ${{ secrets.USERNAME }}
+          URL: ${{ secrets.URL }}
+          JWT: ${{ secrets.JWT }}
+      - name: Deploy Metadata
+        run: sfdx force source deploy -p force-app
